@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | Anveshan Tech Fest</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/png" href="assets/logo.jpeg">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00f0ff; /* Neon Cyan */
+            --secondary: #ff0055; /* Neon Pink */
+            --dark-bg: #010103; /* Near black space */
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background-color: var(--dark-bg);
+            color: white;
+            overflow-x: hidden;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary) transparent;
+        }
+
+        h1, h2, h3, .nav-item, .brand-font {
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        /* 4K Deep Space Background Video */
+        #bg-video {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -4;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            filter: contrast(1.2) saturate(1.3) brightness(0.4);
+        }
+
+        /* --- ADVANCED MULTI-LAYER STARFIELD --- */
+        .star-layer {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -3;
+            pointer-events: none;
+        }
+
+        #stars-small { width: 1px; height: 1px; background: transparent; animation: fly-stars 150s linear infinite; }
+        #stars-medium { width: 2px; height: 2px; background: transparent; animation: fly-stars 100s linear infinite; }
+        #stars-large { width: 3px; height: 3px; background: transparent; animation: fly-stars 70s linear infinite; }
+
+        @keyframes fly-stars {
+            from { transform: translateY(0px); }
+            to { transform: translateY(-2000px); }
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(0,0,0,0) 0%, rgba(1, 1, 3, 0.9) 100%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* --- ROCK INDUSTRIAL SIDEBARS --- */
+        .sidebar-glass {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            z-index: 50;
+            perspective: 1000px; /* Enable 3D for animations */
+        }
+
+        /* SIDEBAR ENTRANCE ANIMATIONS */
+        .sidebar-left-entrance {
+            animation: revealSidebarLeft 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .sidebar-right-entrance {
+            animation: revealSidebarRight 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes revealSidebarLeft {
+            0% { transform: translateX(-100%) rotateY(-45deg); opacity: 0; }
+            100% { transform: translateX(0) rotateY(0deg); opacity: 1; }
+        }
+
+        @keyframes revealSidebarRight {
+            0% { transform: translateX(100%) rotateY(45deg); opacity: 0; }
+            100% { transform: translateX(0) rotateY(0deg); opacity: 1; }
+        }
+
+        .side-line {
+            width: 2px;
+            height: 100px;
+            background: linear-gradient(to bottom, transparent, var(--primary), var(--secondary), transparent);
+            box-shadow: 0 0 15px var(--primary);
+            animation: electricity 2s infinite linear;
+        }
+
+        @keyframes electricity {
+            0%, 100% { opacity: 0.3; filter: brightness(1); }
+            50% { opacity: 1; filter: brightness(1.8); }
+        }
+
+        .nav-icon-btn {
+            position: relative;
+            width: 55px;
+            height: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s cubic-bezier(0.33, 1, 0.68, 1);
+            color: rgba(255,255,255,0.4);
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.02);
+            transform: skewX(-10deg); /* Aggressive Rock Skew */
+            opacity: 0; /* Hidden initially for staggered reveal */
+            animation: popIcon 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        @keyframes popIcon {
+            0% { opacity: 0; transform: skewX(-10deg) scale(0.4); }
+            100% { opacity: 1; transform: skewX(-10deg) scale(1); }
+        }
+        
+        .nav-icon-btn:hover, .nav-icon-btn.active {
+            color: var(--primary);
+            background: rgba(0, 240, 255, 0.1);
+            border-color: var(--primary);
+            box-shadow: -5px 0 20px rgba(0, 240, 255, 0.3);
+            transform: skewX(-10deg) scale(1.1) translateX(8px);
+        }
+
+        .nav-icon-btn i {
+            transform: skewX(10deg);
+        }
+
+        /* Staggered animation delays for icons */
+        .nav-icon-btn:nth-child(1) { animation-delay: 0.7s; }
+        .nav-icon-btn:nth-child(2) { animation-delay: 0.8s; }
+        .nav-icon-btn:nth-child(3) { animation-delay: 0.9s; }
+        .nav-icon-btn:nth-child(4) { animation-delay: 1.0s; }
+        .nav-icon-btn:nth-child(5) { animation-delay: 1.1s; }
+
+        .nav-tooltip {
+            position: absolute;
+            left: 85px;
+            top: 50%;
+            transform: translateY(-50%) translateX(-15px);
+            background: var(--primary);
+            color: #000;
+            padding: 4px 14px;
+            font-size: 0.75rem;
+            font-weight: 900;
+            letter-spacing: 1px;
+            font-family: 'Orbitron', sans-serif;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            z-index: 100;
+        }
+
+        .nav-icon-btn:hover .nav-tooltip {
+            opacity: 1;
+            transform: translateY(-50%) translateX(0);
+        }
+
+        .right-sidebar .nav-tooltip {
+            left: auto;
+            right: 85px;
+            transform: translateY(-50%) translateX(15px);
+            clip-path: polygon(0 0, 90% 0, 100% 100%, 10% 100%);
+        }
+
+        /* HUD Data Panel */
+        .hud-panel {
+            background: rgba(2, 2, 5, 0.5);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 240, 255, 0.15);
+            position: relative;
+            clip-path: polygon(0 0, 95% 0, 100% 5%, 100% 100%, 5% 100%, 0 95%);
+            transition: transform 0.2s ease-out, border-color 0.3s ease;
+            transform-origin: center;
+            overflow: hidden;
+        }
+
+        .hud-panel::after {
+            content: "";
+            position: absolute;
+            top: -150%; left: -150%; width: 300%; height: 300%;
+            background: linear-gradient(45deg, transparent, rgba(0, 240, 255, 0.08), transparent);
+            transform: rotate(45deg);
+            animation: sweep 8s infinite ease-in-out;
+        }
+
+        @keyframes sweep {
+            0% { transform: translate(-100%, -100%) rotate(45deg); }
+            15% { transform: translate(100%, 100%) rotate(45deg); }
+            100% { transform: translate(100%, 100%) rotate(45deg); }
+        }
+
+        .hud-accent {
+            position: absolute; width: 25px; height: 25px; border: 2px solid var(--primary); opacity: 0.6; z-index: 10;
+        }
+        .accent-tl { top: 0; left: 0; border-right: 0; border-bottom: 0; }
+        .accent-br { bottom: 0; right: 0; border-left: 0; border-top: 0; }
+
+        section { opacity: 0; transform: scale(0.92) translateY(80px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
+        section.visible { opacity: 1; transform: scale(1) translateY(0); }
+        .rock-slant-bg { clip-path: polygon(3% 0, 100% 0, 97% 100%, 0 100%); }
+
+        .asset-layer-1 { animation: spin 25s linear infinite; }
+        .asset-layer-2 { animation: spin 12s linear infinite reverse; }
+        
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        html { scroll-behavior: smooth; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Deep Space Background Video -->
+    <video autoplay muted loop playsinline id="bg-video">
+        <source src="https://assets.mixkit.co/videos/preview/mixkit-nebula-and-stars-in-deep-space-32746-large.mp4" type="video/mp4">
+    </video>
+    
+    <!-- Multi-Layer Stars (Small Dots) -->
+    <div class="star-layer" id="stars-small"></div>
+    <div class="star-layer" id="stars-medium"></div>
+    <div class="star-layer" id="stars-large"></div>
+    
+    <div class="overlay"></div>
+
+    <!-- LOGO -->
+    <div class="fixed top-8 left-8 z-[60] flex items-center gap-3 cursor-pointer group">
+        <div class="w-12 h-12 border-b-4 border-r-4 border-cyan-400 flex items-center justify-center group-hover:bg-cyan-400 transition-all duration-300">
+            <img src="assets/logo.jpeg" alt="logo">
+        </div>
+        <div class="flex flex-col">
+            <span class="brand-font text-2xl font-black text-white group-hover:text-cyan-400 uppercase leading-none">Anveshan</span>
+            <span class="text-[9px] tracking-[0.4em] text-white/40 font-bold uppercase">Tech_Rock_2026</span>
+        </div>
+    </div>
+
+    <!-- LEFT SIDEBAR (ROCK INDUSTRIAL) -->
+    <div class="fixed left-0 top-0 h-full w-24 hidden lg:flex flex-col justify-between items-center py-12 z-40 sidebar-glass border-r border-white/5 sidebar-left-entrance">
+        <div class="side-line"></div>
+        
+        <div class="flex flex-col gap-8 items-center w-full">
+            <a href="index.html" class="nav-icon-btn group">
+                <i data-lucide="home" class="w-6 h-6"></i>
+                <span class="nav-tooltip">DASHBOARD</span>
+            </a>
+            <a href="mission intel.html" class="nav-icon-btn group active">
+                <i data-lucide="telescope" class="w-6 h-6"></i>
+                <span class="nav-tooltip">SIT HUB</span>
+            </a>
+            <a href="setlist.html" class="nav-icon-btn group">
+                <i data-lucide="zap" class="w-6 h-6"></i>
+                <span class="nav-tooltip">SETLIST</span>
+            </a>                    
+            <a href="backers.html" class="nav-icon-btn group">
+                <i data-lucide="gem" class="w-6 h-6"></i>
+                <span class="nav-tooltip">BACKERS</span>
+            </a>
+            <a href="lauch.html" class="nav-icon-btn group text-cyan-400 border-cyan-400/30">
+                <i data-lucide="rocket" class="w-6 h-6"></i>
+                <span class="nav-tooltip">IGNITE</span>
+            </a>
+        </div>
+
+        <div class="side-line"></div>
+    </div>
+
+    <!-- RIGHT SIDEBAR (ROCK INDUSTRIAL) -->
+    <div class="fixed right-0 top-0 h-full w-24 hidden lg:flex flex-col justify-between items-center py-12 z-40 sidebar-glass border-l border-white/5 right-sidebar sidebar-right-entrance">
+        <div class="side-line"></div>
+        <div class="flex flex-col gap-8 items-center w-full">
+            <a href="https://www.instagram.com/anveshan_2026" class="nav-icon-btn group"><i data-lucide="instagram" class="w-6 h-6"></i><span class="nav-tooltip">INSTA</span></a>
+            <a href="#" class="nav-icon-btn group"><i data-lucide="twitter" class="w-6 h-6"></i><span class="nav-tooltip">TWITTER</span></a>
+            <a href="https://www.linkedin.com/company/symbiosis-institute-of-technology-hyderabad" class="nav-icon-btn group"><i data-lucide="linkedin" class="w-6 h-6"></i><span class="nav-tooltip">LINKEDIN</span></a>
+            <a href="https://www.youtube.com/@SITHyderabad" class="nav-icon-btn group"><i data-lucide="youtube" class="w-6 h-6"></i><span class="nav-tooltip">YOUTUBE</span></a>
+        </div>
+        <div class="side-line"></div>
+    </div>
+
+    <!-- MOBILE NAV -->
+    <button class="fixed top-6 right-6 z-50 text-white lg:hidden p-2 bg-black/20 backdrop-blur-sm rounded border border-white/10" onclick="toggleMobileMenu()">
+        <i data-lucide="menu" class="w-8 h-8"></i>
+    </button>
+    <div id="mobile-menu" class="fixed inset-0 bg-black/95 z-50 transform translate-x-full transition-transform duration-300 flex flex-col justify-center items-center gap-8 lg:hidden">
+        <button class="absolute top-6 right-6 text-white" onclick="toggleMobileMenu()"><i data-lucide="x" class="w-8 h-8"></i></button>
+        <a href="index.html" class="text-2xl font-bold tracking-widest hover:text-cyan-400" onclick="toggleMobileMenu()">HOME</a>
+        <a href="mission intel.html" class="text-2xl font-bold tracking-widest text-cyan-400" onclick="toggleMobileMenu()">ABOUT SIT</a>
+        <a href="setlist.html" class="text-2xl font-bold tracking-widest hover:text-cyan-400" onclick="toggleMobileMenu()">SETLIST</a>
+        <a href="backers.html" class="text-2xl font-bold tracking-widest hover:text-cyan-400" onclick="toggleMobileMenu()">BACKERS</a>
+        <a href="lauch.html" class="text-2xl font-bold tracking-widest hover:text-cyan-400" onclick="toggleMobileMenu()">REGISTER</a>
+    </div>
+
+    <!-- ABOUT CONTENT -->
+    <main class="relative z-10 pt-20 pb-20 px-6 lg:px-40 xl:px-64">
+        
+        <!-- SECTION: SIT HYDERABAD -->
+        <section id="sit-h" class="mb-40 scroll-velocity-skew">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="space-y-8 order-2 lg:order-1 reveal-content">
+                    <div class="inline-block px-4 py-1 bg-cyan-400/10 border-l-4 border-cyan-400 rock-slant-bg transform hover:translate-x-2 transition-transform">
+                        <span class="text-cyan-400 font-bold tracking-[0.4em] text-xs uppercase">Base Coordinates: HYD-SIT</span>
+                    </div>
+                    
+                    <h2 class="impact-header text-5xl md:text-6xl font-black text-white leading-none tracking-tighter">
+                        ABOUT SIT<br><span class="text-cyan-400">HYDERABAD</span>
+                    </h2>
+
+                    <div class="hud-panel p-8 md:p-10 shadow-2xl group">
+                        <div class="hud-accent accent-tl group-hover:scale-125 transition-transform"></div>
+                        <div class="hud-accent accent-br group-hover:scale-125 transition-transform"></div>
+                        
+                        <p class="text-gray-200 text-lg md:text-xl leading-relaxed font-light mb-6 relative z-10">
+                            Symbiosis Institute of Technology, Hyderabad (SIT-H), a premier constituent of <span class="text-white font-bold">Symbiosis International (Deemed University)</span>, is a hub of innovation, learning, and technological excellence. 
+                        </p>
+                        <p class="text-gray-300 leading-relaxed italic border-l-2 border-pink-500 pl-6 py-2 relative z-10">
+                            Guided by the vision of creating globally competent engineers, the institute combines rigorous academic programs with hands-on practical learning, research opportunities, and a culture of creativity.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
+                        <div class="bg-white/5 p-4 border-b-2 border-cyan-400 group cursor-default hover:bg-white/10 transition-colors">
+                            <span class="text-[10px] text-cyan-400 uppercase tracking-widest group-hover:text-white transition-colors">Sector</span>
+                            <p class="font-bold text-lg brand-font">COMPUTER SC.</p>
+                        </div>
+                        <div class="bg-white/5 p-4 border-b-2 border-pink-500 group cursor-default hover:bg-white/10 transition-colors">
+                            <span class="text-[10px] text-pink-500 uppercase tracking-widest group-hover:text-white transition-colors">Focus</span>
+                            <p class="font-bold text-lg brand-font">AI & ML</p>
+                        </div>
+                        <div class="bg-white/5 p-4 border-b-2 border-white/20 group cursor-default hover:bg-white/10 transition-colors">
+                            <span class="text-[10px] text-white/40 uppercase tracking-widest group-hover:text-white transition-colors">Environment</span>
+                            <p class="font-bold text-lg brand-font">COLLABORATIVE</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="order-1 lg:order-2 flex justify-center relative reveal-asset">
+                    <div class="w-full max-w-md aspect-square relative group">
+                        <div class="absolute inset-0 border-2 border-dashed border-cyan-400/20 rounded-full asset-layer-1"></div>
+                        <div class="absolute inset-10 border-2 border-cyan-400/40 rounded-full asset-layer-2"></div>
+                        <div class="absolute inset-20 border border-pink-500/30 rounded-full asset-layer-1"></div>
+                        
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="text-center group-hover:scale-110 transition-transform duration-500">
+                                <div class="relative inline-block">
+                                    <div class="w-32 h-32 mx-auto mb-6 
+            rounded-full 
+            overflow-hidden 
+            shadow-[0_0_30px_rgba(0,240,255,0.4)] 
+            hover:shadow-[0_0_60px_rgba(0,240,255,0.8)] 
+            transition-all duration-500 
+            hover:scale-110">
+
+    <img src="assets/sit_logo.png" 
+         class="w-full h-full object-cover">
+</div>
+                                    <div class="absolute inset-0 bg-cyan-400 blur-2xl opacity-25"></div>
+                                </div>
+                                <span class="block text-4xl font-black text-white/40 tracking-tighter brand-font">SIT-H HUB</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: ANVESHAN -->
+        <section id="anveshan" class="mb-20 scroll-velocity-skew">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                
+                <div class="hidden lg:flex justify-center relative reveal-asset">
+                    <div class="hud-panel p-2 w-full max-w-sm rotate-3 hover:rotate-0 transition-all duration-700 hover:scale-105">
+                        <div class="bg-black/40 p-8 flex flex-col items-center gap-6">
+                            <div class="relative w-20 h-20">
+                                <div class="absolute inset-0 bg-pink-500/25 blur-2xl animate-pulse"></div>
+                                <div class="relative w-full h-full bg-pink-500/10 flex items-center justify-center border border-pink-500 shadow-[0_0_30px_rgba(255,0,85,0.4)]">
+                                    <i data-lucide="zap" class="w-10 h-10 text-pink-500"></i>
+                                </div>
+                            </div>
+                            <div class="space-y-4 w-full">
+                                <div class="h-1 w-full bg-white/10 overflow-hidden"><div class="h-full w-3/4 bg-cyan-400 shadow-[0_0_15px_cyan] animate-[sweep_3s_infinite]"></div></div>
+                                <div class="h-1 w-full bg-white/10 overflow-hidden"><div class="h-full w-1/2 bg-pink-500 shadow-[0_0_15px_#ff0055] animate-[sweep_4s_infinite_reverse]"></div></div>
+                                <div class="h-1 w-full bg-white/10 overflow-hidden"><div class="h-full w-5/6 bg-cyan-400 shadow-[0_0_15px_cyan] animate-[sweep_2s_infinite]"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-8 reveal-content">
+                    <div class="inline-block px-4 py-1 bg-pink-500/10 border-r-4 border-pink-500 rock-slant-bg transform hover:-translate-x-2 transition-transform">
+                        <span class="text-pink-500 font-bold tracking-[0.4em] text-xs uppercase">Mission Status: EXECUTING</span>
+                    </div>
+
+                    <h2 class="impact-header text-5xl md:text-6xl font-black text-white leading-none tracking-tighter">
+                        EXPLORE<br><span class="text-pink-500">ANVESHAN</span>
+                    </h2>
+
+                    <div class="hud-panel p-8 md:p-10 border-pink-500/20 shadow-2xl group">
+                        <div class="hud-accent accent-tl !border-pink-500 group-hover:rotate-90 transition-transform"></div>
+                        <div class="hud-accent accent-br !border-pink-500 group-hover:rotate-90 transition-transform"></div>
+
+                        <p class="text-gray-200 text-lg md:text-xl leading-relaxed mb-6 relative z-10">
+                            Anveshan, the premier techno-cultural fest of SIT Hyderabad, is a showcase of innovation, imagination, and technical mastery. True to its name — <span class="italic text-pink-400 font-bold uppercase tracking-widest">“exploration”</span> — Anveshan encourages participants to push boundaries.
+                        </p>
+                        
+                        <div class="space-y-4 relative z-10">
+                            <div class="flex items-start gap-4 group/item cursor-pointer">
+                                <div class="mt-2 w-2 h-2 bg-pink-500 group-hover/item:scale-150 group-hover/item:bg-white transition-all shadow-[0_0_10px_#ff0055]"></div>
+                                <p class="text-gray-300 group-hover/item:text-white transition-colors font-medium">Realizing creative potential through competitive experimentation.</p>
+                            </div>
+                            <div class="flex items-start gap-4 group/item cursor-pointer">
+                                <div class="mt-2 w-2 h-2 bg-pink-500 group-hover/item:scale-150 group-hover/item:bg-white transition-all shadow-[0_0_10px_#ff0055]"></div>
+                                <p class="text-gray-300 group-hover/item:text-white transition-colors font-medium">A platform for growth, discovery, and high-octane skill development</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="https://sithyd.edu.in/techfest-anveshan-2025"> <button class="px-12 py-5 bg-white text-black font-black tracking-widest uppercase rock-slant-bg hover:bg-cyan-400 hover:shadow-[0_0_50px_rgba(0,240,255,0.7)] transition-all transform active:scale-95 group">
+                        <span class="flex items-center gap-3">
+                            VIEW MISSION LOGS
+                            <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-2 transition-transform"></i>
+                        </span>
+                    </button></a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER HUD -->
+    <div class="fixed bottom-8 left-1/2 -translate-x-1/2 hidden md:flex items-center gap-12 text-[10px] tracking-[0.6em] text-white/30 uppercase z-50">
+        <span class="flex items-center gap-2"><i data-lucide="chevrons-down" class="w-3 h-3 animate-bounce"></i> DEEP SPACE COMMS</span>
+        <div class="h-4 w-[1px] bg-white/10"></div>
+        <span>COORD_HYD_78.48E</span>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        // --- STAR GENERATOR ---
+        function generateStars(count, maxWidth, maxHeight) {
+            let stars = "";
+            for (let i = 0; i < count; i++) {
+                stars += `${Math.floor(Math.random() * maxWidth)}px ${Math.floor(Math.random() * maxHeight)}px #FFF${i < count - 1 ? "," : ""}`;
+            }
+            return stars;
+        }
+
+        const smallStars = generateStars(700, 2500, 2500);
+        const mediumStars = generateStars(200, 2500, 2500);
+        const largeStars = generateStars(50, 2500, 2500);
+
+        document.getElementById('stars-small').style.boxShadow = smallStars;
+        document.getElementById('stars-medium').style.boxShadow = mediumStars;
+        document.getElementById('stars-large').style.boxShadow = largeStars;
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('translate-x-full');
+        }
+
+        // Staggered Reveals
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    const children = entry.target.querySelectorAll('.reveal-content, .reveal-asset');
+                    children.forEach((child, index) => {
+                        setTimeout(() => {
+                            child.style.opacity = '1';
+                            child.style.transform = 'translateY(0)';
+                        }, index * 150);
+                    });
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('section').forEach(section => observer.observe(section));
+
+        // Velocity Skew
+        let lastScrollTop = 0;
+        let skewAmount = 0;
+        let targetSkew = 0;
+
+        const applyRockScroll = () => {
+            const currentScroll = window.pageYOffset;
+            const scrollDiff = currentScroll - lastScrollTop;
+            targetSkew = Math.max(-2.5, Math.min(2.5, scrollDiff * 0.08));
+            skewAmount += (targetSkew - skewAmount) * 0.1;
+
+            document.querySelectorAll('.scroll-velocity-skew').forEach(el => {
+                el.style.transform = `skewY(${skewAmount}deg)`;
+            });
+
+            lastScrollTop = currentScroll;
+            if (Math.abs(targetSkew) < 0.01) targetSkew = 0;
+            requestAnimationFrame(applyRockScroll);
+        };
+        requestAnimationFrame(applyRockScroll);
+
+        // Parallax Interactions
+        document.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth - 0.5);
+            const y = (e.clientY / window.innerHeight - 0.5);
+            
+            // Panel Tilt
+            document.querySelectorAll('.hud-panel').forEach(panel => {
+                panel.style.transform = `perspective(1000px) rotateX(${-y * 12}deg) rotateY(${x * 12}deg)`;
+            });
+
+            // Subtle Star Parallax
+            document.getElementById('stars-small').style.transform = `translate(${x * 10}px, ${y * 10}px)`;
+            document.getElementById('stars-medium').style.transform = `translate(${x * 20}px, ${y * 20}px)`;
+            document.getElementById('stars-large').style.transform = `translate(${x * 40}px, ${y * 40}px)`;
+        });
+    </script>
+</body>
+</html>

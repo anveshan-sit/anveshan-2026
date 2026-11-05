@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trailer | Anveshan 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/png" href="assets/logo.jpeg">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00f0ff; /* Neon Cyan */
+            --secondary: #ff0055; /* Neon Pink/Red */
+            --dark-bg: #010103;
+            --warp-speed: 150s;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background-color: var(--dark-bg);
+            color: white;
+            overflow: hidden; /* Prevent scrolling on desktop */
+            height: 100vh;
+        }
+
+        h1, h2, h3, h4, .nav-item, .brand-font { font-family: 'Orbitron', sans-serif; }
+
+        /* Dynamic Space Background */
+        #bg-video {
+            position: fixed; top: 50%; left: 50%; min-width: 100%; min-height: 100%;
+            z-index: -4; transform: translate(-50%, -50%); object-fit: cover;
+            filter: contrast(1.2) saturate(1.4) brightness(0.3);
+        }
+        
+        /* Star Layers */
+        .star-layer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -3; pointer-events: none; }
+        @keyframes fly-stars { from { transform: translateY(0); } to { transform: translateY(-2000px); } }
+
+        .overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, rgba(0,0,0,0.1) 0%, rgba(5,0,10,0.9) 100%);
+            z-index: -2; pointer-events: none;
+        }
+
+        /* --- ROCK INDUSTRIAL SIDEBARS --- */
+        .sidebar-glass {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            z-index: 50;
+            perspective: 1000px;
+        }
+
+        /* Entrance Animation */
+        .sidebar-left-entrance { animation: revealSidebarLeft 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .sidebar-right-entrance { animation: revealSidebarRight 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @keyframes revealSidebarLeft { 0% { transform: translateX(-100%) rotateY(-45deg); opacity: 0; } 100% { transform: translateX(0) rotateY(0deg); opacity: 1; } }
+        @keyframes revealSidebarRight { 0% { transform: translateX(100%) rotateY(45deg); opacity: 0; } 100% { transform: translateX(0) rotateY(0deg); opacity: 1; } }
+
+        .side-line {
+            width: 2px; height: 100px;
+            background: linear-gradient(to bottom, transparent, var(--primary), var(--secondary), transparent);
+            box-shadow: 0 0 15px var(--primary);
+            animation: electricity 2s infinite linear;
+        }
+        @keyframes electricity { 0%, 100% { opacity: 0.3; filter: brightness(1); } 50% { opacity: 1; filter: brightness(1.8); } }
+
+        .nav-icon-btn {
+            position: relative; width: 50px; height: 50px;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.2s cubic-bezier(0.33, 1, 0.68, 1);
+            color: rgba(255,255,255,0.4); border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.02);
+            transform: skewX(-10deg);
+        }
+        .nav-icon-btn:hover, .nav-icon-btn.active {
+            color: var(--primary); background: rgba(0, 240, 255, 0.1);
+            border-color: var(--primary); box-shadow: -5px 0 20px rgba(0, 240, 255, 0.3);
+            transform: skewX(-10deg) scale(1.1) translateX(8px);
+        }
+        .nav-icon-btn i { transform: skewX(10deg); }
+
+        .nav-tooltip {
+            position: absolute; left: 85px; top: 50%; transform: translateY(-50%) translateX(-15px);
+            background: var(--primary); color: #000; padding: 4px 14px;
+            font-size: 0.75rem; font-weight: 900; font-family: 'Orbitron', sans-serif;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+            opacity: 0; pointer-events: none; transition: all 0.2s ease;
+            white-space: nowrap; z-index: 100;
+        }
+        .nav-icon-btn:hover .nav-tooltip { opacity: 1; transform: translateY(-50%) translateX(0); }
+
+        /* --- CINEMA HUD PLAYER --- */
+        .cinema-hud {
+            position: relative;
+            background: rgba(0, 0, 0, 0.8);
+            border-left: 4px solid var(--primary);
+            border-right: 4px solid var(--secondary);
+            padding: 6px;
+            clip-path: polygon(0 0, 98% 0, 100% 2%, 100% 100%, 2% 100%, 0 98%);
+            animation: impactDown 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+            max-height: 60vh; /* Scaled for 15.6 inch screens */
+            width: auto;
+            margin: 0 auto;
+        }
+
+        @keyframes impactDown {
+            0% { transform: translateY(-30px) scale(0.98); opacity: 0; }
+            100% { transform: translateY(0) scale(1); opacity: 1; }
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            aspect-ratio: 16/9;
+            background: #000;
+            overflow: hidden;
+            max-height: calc(60vh - 12px);
+        }
+
+        .hud-accent {
+            position: absolute; width: 20px; height: 20px; border: 3px solid var(--primary); opacity: 0.8; z-index: 10;
+        }
+        .accent-tl { top: -4px; left: -4px; border-right: 0; border-bottom: 0; }
+        .accent-br { bottom: -4px; right: -4px; border-left: 0; border-top: 0; border-color: var(--secondary); }
+
+        /* Scanning line on player */
+        .player-scan {
+            position: absolute; top: 0; left: 0; width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            opacity: 0.1; animation: playerScan 6s linear infinite;
+            pointer-events: none;
+        }
+        @keyframes playerScan { 0% { top: 0%; } 100% { top: 100%; } }
+
+        .btn-rock {
+            background: transparent;
+            border: 2px solid var(--primary);
+            padding: 8px 20px;
+            color: var(--primary);
+            font-family: 'Orbitron';
+            font-weight: 900;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+            transition: 0.3s;
+        }
+        .btn-rock:hover {
+            background: var(--primary);
+            color: #000;
+            box-shadow: 0 0 30px var(--primary);
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 1024px) {
+            body { overflow-y: auto; height: auto; }
+            .desktop-sidebar { display: none !important; }
+            main { padding: 100px 10px 100px 10px; height: auto; }
+            .mobile-bottom-nav { display: flex !important; }
+            .cinema-hud { max-height: none; }
+            .video-container { max-height: none; }
+        }
+    </style>
+</head>
+<body class="antialiased flex items-center justify-center">
+
+    <video autoplay muted loop playsinline id="bg-video">
+        <source src="https://assets.mixkit.co/videos/preview/mixkit-nebula-and-stars-in-deep-space-32746-large.mp4" type="video/mp4">
+    </video>
+
+    <!-- Star Layers -->
+    <div class="star-layer" id="stars-small" style="width:1px; height:1px; background:transparent; animation: fly-stars var(--warp-speed) linear infinite;"></div>
+    <div class="star-layer" id="stars-medium" style="width:2px; height:2px; background:transparent; animation: fly-stars calc(var(--warp-speed) * 0.6) linear infinite;"></div>
+
+    <div class="overlay"></div>
+
+    <!-- LEFT SIDEBAR -->
+    <div class="fixed left-0 top-0 h-full w-20 hidden lg:flex flex-col justify-between items-center py-8 z-40 sidebar-glass border-r border-white/5 sidebar-left-entrance">
+        <div class="side-line"></div>
+        <div class="flex flex-col gap-6 items-center w-full">
+            <a href="index.html" class="nav-icon-btn group"><i data-lucide="home" class="w-5 h-5"></i><span class="nav-tooltip">DASHBOARD</span></a>
+            <a href="mission intel.html" class="nav-icon-btn group"><i data-lucide="telescope" class="w-5 h-5"></i><span class="nav-tooltip">INTEL</span></a>
+            <a href="setlist.html" class="nav-icon-btn group"><i data-lucide="zap" class="w-5 h-5"></i><span class="nav-tooltip">SETLIST</span></a>                    
+            <a href="backers.html" class="nav-icon-btn group"><i data-lucide="gem" class="w-5 h-5"></i><span class="nav-tooltip">BACKERS</span></a>
+            <a href="https://anveshan-6fla.vercel.app/index.html" class="nav-icon-btn group text-cyan-400"><i data-lucide="rocket" class="w-5 h-5"></i><span class="nav-tooltip">IGNITE</span></a>
+        </div>
+        <div class="side-line"></div>
+    </div>
+
+    <!-- RIGHT SIDEBAR -->
+    <div class="fixed right-0 top-0 h-full w-20 hidden lg:flex flex-col justify-between items-center py-8 z-40 sidebar-glass border-l border-white/5 right-sidebar sidebar-right-entrance">
+        <div class="side-line"></div>
+        <div class="flex flex-col gap-6 items-center w-full">
+            <a href="https://www.instagram.com/anveshan_2026" class="nav-icon-btn group"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+            <a href="#" class="nav-icon-btn group"><i data-lucide="twitter" class="w-5 h-5"></i></a>
+            <a href="https://www.linkedin.com/company/symbiosis-institute-of-technology-hyderabad" class="nav-icon-btn group"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+            <a href="https://www.youtube.com/@SITHyderabad" class="nav-icon-btn group"><i data-lucide="youtube" class="w-5 h-5"></i></a>
+        </div>
+        <div class="side-line"></div>
+    </div>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="relative z-10 w-full max-w-5xl px-6 flex flex-col justify-center h-full pt-16 lg:pt-0">
+        
+        <!-- PLAYER HEADER -->
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-2 mb-4">
+            <div class="space-y-1">
+                <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 bg-red-600 rounded-full animate-pulse shadow-[0_0_8px_red]"></span>
+                    <span class="text-[8px] font-black tracking-[0.4em] text-white/50 uppercase">System_Feed: Live_Teaser_Stream</span>
+                </div>
+                <h1 class="text-2xl md:text-4xl xl:text-5xl font-black text-white uppercase tracking-tighter leading-none">ANVESHAN '26 <span class="text-cyan-400">TEASER</span></h1>
+            </div>
+            <div class="hidden md:block pb-1 border-b border-white/10">
+                <span class="text-[8px] font-bold text-white/30 uppercase tracking-widest">4K_ULTRAWIDE</span>
+            </div>
+        </div>
+
+        <!-- THE PLAYER -->
+        <div class="cinema-hud group w-full">
+            <div class="hud-accent accent-tl"></div>
+            <div class="hud-accent accent-br"></div>
+            <div class="player-scan"></div>
+            
+            
+                <div class="video-container shadow-2xl" style="padding:56.86% 0 0 0;position:relative;">
+    <iframe
+        src="https://player.vimeo.com/video/1202709660?autoplay=1&muted=0&loop=1&autopause=0"
+        frameborder="0"
+        allow="autoplay; fullscreen; picture-in-picture"
+        style="position:absolute;top:0;left:0;width:100%;height:100%;"
+        title="trailer">
+    </iframe>
+</div>
+
+
+        </div>
+
+        <!-- PLAYER FOOTER -->
+        <div class="mt-6 flex flex-wrap items-center justify-center gap-4">
+            <a href="index.html" class="btn-rock flex items-center gap-2 group">
+                <i data-lucide="chevron-left" class="w-3 h-3 group-hover:-translate-x-1 transition-transform"></i> Back to base
+            </a>
+            <a href="lauch.html" class="btn-rock !border-secondary !text-secondary hover:!bg-secondary hover:!text-white flex items-center gap-2 group">
+                Launch Mission <i data-lucide="rocket" class="w-3 h-3 group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform"></i>
+            </a>
+        </div>
+
+        <!-- FOOTER INFO IN-MAIN (to prevent overlap) -->
+        <div class="mt-8 flex items-center justify-center gap-8 text-[9px] tracking-[0.4em] text-white/20 uppercase">
+            <span>ARCHIVE_ID: ANV_T01</span>
+            <div class="h-3 w-[1px] bg-white/10"></div>
+            <span>AUDIO_CORE: STEREO</span>
+        </div>
+
+    </main>
+
+    <!-- MOBILE NAV -->
+    <nav class="fixed bottom-0 left-0 w-full h-16 bg-black/80 backdrop-blur-xl border-t border-cyan-400/30 hidden items-center justify-around lg:hidden z-50 mobile-bottom-nav">
+        <a href="index.html" class="text-white/60 flex flex-col items-center"><i data-lucide="home" class="w-5 h-5"></i><span class="text-[8px] mt-1 font-bold">HOME</span></a>
+        <a href="mission intel.html" class="text-white/60 flex flex-col items-center"><i data-lucide="telescope" class="w-5 h-5"></i><span class="text-[8px] mt-1 font-bold">ABOUT</span></a>
+        <a href="setlist.html" class="text-cyan-400 flex flex-col items-center"><i data-lucide="zap" class="w-5 h-5"></i><span class="text-[8px] mt-1 font-bold">EVENTS</span></a>
+        <a href="backers.html" class="text-cyan-400 flex flex-col items-center"><i data-lucide="zap" class="w-5 h-5"></i><span class="text-[8px] mt-1 font-bold">BACKERS</span></a>
+        <a href="lauch.html" class="text-pink-500 flex flex-col items-center"><i data-lucide="rocket" class="w-5 h-5"></i><span class="text-[8px] mt-1 font-bold">LAUNCH</span></a>
+    </nav>
+
+    <script>
+        lucide.createIcons();
+
+        // --- STAR GENERATOR ---
+        function generateStars(id, count) {
+            let stars = "";
+            for (let i = 0; i < count; i++) {
+                stars += `${Math.floor(Math.random() * 2500)}px ${Math.floor(Math.random() * 2500)}px #FFF${i < count - 1 ? "," : ""}`;
+            }
+            document.getElementById(id).style.boxShadow = stars;
+        }
+        generateStars('stars-small', 800);
+        generateStars('stars-medium', 250);
+
+        // --- MOUSE PARALLAX ---
+        document.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth - 0.5);
+            const y = (e.clientY / window.innerHeight - 0.5);
+            
+            // Star Parallax
+            document.getElementById('stars-small').style.transform = `translate(${x * 15}px, ${y * 15}px)`;
+            document.getElementById('stars-medium').style.transform = `translate(${x * 30}px, ${y * 30}px)`;
+
+            // HUD Player Subtle Tilt
+            const player = document.querySelector('.cinema-hud');
+            if(player && window.innerWidth > 1024) {
+                player.style.transform = `perspective(1000px) rotateX(${-y * 3}deg) rotateY(${x * 3}deg)`;
+            }
+        });
+    </script>
+    <script src="https://player.vimeo.com/api/player.js"></script>
+</body>
+</html>
